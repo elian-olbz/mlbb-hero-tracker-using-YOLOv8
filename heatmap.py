@@ -6,11 +6,6 @@ import sys
 import os
 from ui.misc import error_handler
 
-if sys.stdout is None:
-    sys.stdout = open(os.devnull, "w")
-if sys.stderr is None:
-    sys.stderr = open(os.devnull, "w")
-
 from ultralytics import YOLO
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QSizePolicy, QDialog, QVBoxLayout, QProgressBar
 from PyQt6.QtGui import QPixmap, QImage
@@ -19,7 +14,6 @@ from PyQt6 import uic
 import sys
 import os
 import pickle 
-from run_draft_logic.utils import load_theme
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import TitleBar
@@ -107,7 +101,7 @@ class PredictionThread(QThread):
 
 class HeatMapWindow(QMainWindow):
     def __init__(self):
-        super(HeatMapWindow, self).__init__()
+        super().__init__()
 
         self.model = None
         self.WINDOW_MAXED = False
@@ -302,6 +296,11 @@ if __name__ == "__main__":
     sys.excepthook = error_handler.excepthook
     app = QApplication(sys.argv)
     window = HeatMapWindow()
-    
-    window.show()
+
+    window.showMaximized()
+    opened = window.open_video_file()
+
+    if not opened:
+        pass
+        
     sys.exit(app.exec())

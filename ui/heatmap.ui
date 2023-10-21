@@ -216,22 +216,13 @@ color:#fff
 text-align:center;
 padding: 3px 3px;
 border-radius: 5px;
-}
-
-QPushButton:hover {
-    background-color: #23272e;
-}
-
-QPushButton:pressed {	
-    background-color: rgb(62, 69, 82);
-    color: rgb(255, 255, 255);
 }</string>
                      </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="../rsc.qrc">
+                      <iconset resource="rsc.qrc">
                        <normaloff>:/icons/icons/logo_plain.svg</normaloff>:/icons/icons/logo_plain.svg</iconset>
                      </property>
                      <property name="iconSize">
@@ -368,7 +359,7 @@ QPushButton:pressed {
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="../rsc.qrc">
+                         <iconset resource="rsc.qrc">
                           <normaloff>:/icons/icons/folder.svg</normaloff>:/icons/icons/folder.svg</iconset>
                         </property>
                         <property name="iconSize">
@@ -436,7 +427,7 @@ QPushButton:pressed {
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="../rsc.qrc">
+                         <iconset resource="rsc.qrc">
                           <normaloff>:/icons/icons/save.svg</normaloff>:/icons/icons/save.svg</iconset>
                         </property>
                         <property name="iconSize">
@@ -529,7 +520,7 @@ QPushButton:pressed {
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="../rsc.qrc">
+                      <iconset resource="rsc.qrc">
                        <normaloff>:/icons/icons/minus.svg</normaloff>:/icons/icons/minus.svg</iconset>
                      </property>
                     </widget>
@@ -558,7 +549,7 @@ QPushButton:pressed {
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="../rsc.qrc">
+                      <iconset resource="rsc.qrc">
                        <normaloff>:/icons/icons/square.svg</normaloff>:/icons/icons/square.svg</iconset>
                      </property>
                     </widget>
@@ -587,7 +578,7 @@ QPushButton:pressed {
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="../rsc.qrc">
+                      <iconset resource="rsc.qrc">
                        <normaloff>:/icons/icons/x.svg</normaloff>:/icons/icons/x.svg</iconset>
                      </property>
                     </widget>
@@ -1394,8 +1385,7 @@ border-bottom-right-radius: 10px;
   </widget>
  </widget>
  <resources>
-  <include location="../rsc.qrc"/>
-  <include location="../rsc.qrc"/>
+  <include location="rsc.qrc"/>
  </resources>
  <connections/>
 </ui>
