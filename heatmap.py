@@ -8,7 +8,7 @@ from ui.misc import error_handler
 
 from ultralytics import YOLO
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QFileDialog, QSizePolicy, QDialog, QVBoxLayout, QProgressBar
-from PyQt6.QtGui import QPixmap, QImage
+from PyQt6.QtGui import QPixmap, QImage, QIcon
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QTimer
 from PyQt6 import uic
 import sys
@@ -264,6 +264,8 @@ class HeatMapWindow(QMainWindow):
                         for entry in data:
                             frame_count, class_name, class_id, x_center, y_center = entry
                             csv_writer.writerow([frame_count, class_name, class_id, x_center, y_center])
+                        
+                        # Add success dialog here
 
                     if os.path.exists(self.temp_pickle):
                         os.remove(self.temp_pickle)
@@ -296,7 +298,8 @@ if __name__ == "__main__":
     sys.excepthook = error_handler.excepthook
     app = QApplication(sys.argv)
     window = HeatMapWindow()
-
+    icon = QIcon('icon.png')
+    window.setWindowIcon(icon)
     window.showMaximized()
     opened = window.open_video_file()
 
