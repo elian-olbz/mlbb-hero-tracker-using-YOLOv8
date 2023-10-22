@@ -17,6 +17,7 @@ import pickle
 from functools import partial
 from ui.rsc_rc import *
 from ui.misc.titlebar import TitleBar
+from ui.dialogs.save_success import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -133,6 +134,14 @@ class HeatMapWindow(QMainWindow):
 
         self.resizeEvent = self.resize_video
 
+        icon = QIcon('icons/icon.png')
+
+        self.save_success_dialog = SaveSuccessDialog()
+        self.save_success_dialog.setWindowIcon(icon)
+        self.save_success_dialog.okay_btn.clicked.connect(self.close_save_success_dialog)
+        self.save_success_dialog.setWindowModality(Qt.WindowModality.ApplicationModal)
+
+
         def moveWindow(event):
             if self.title_bar.returnStatus() == True:
                 self.title_bar.maximize_restore(self)
@@ -199,6 +208,10 @@ class HeatMapWindow(QMainWindow):
 
                 self.update_file_name_label()
                 self.progress_bar.setValue(0)
+
+                if os.path.exists(self.temp_pickle):
+                    os.remove(self.temp_pickle)
+
                 return True
             else:
                 return False
@@ -266,17 +279,27 @@ class HeatMapWindow(QMainWindow):
                             csv_writer.writerow([frame_count, class_name, class_id, x_center, y_center])
                         
                         # Add success dialog here
-
-                    if os.path.exists(self.temp_pickle):
-                        os.remove(self.temp_pickle)
+                        self.show_save_csv_success()
                 else:
-                    return
+                    pass
 
             except FileNotFoundError:
-                print(f"Error: File '{self.temp_pickle}' not found.")
-            except Exception as e:
-                print(f"An error occurred: {str(e)}")
+                #print(f"Error: File '{self.temp_pickle}' not found.")
+                self.show_save_csv_failed()
 
+    def close_save_success_dialog(self):
+        self.save_success_dialog.close()
+
+    def show_save_csv_success(self):
+        self.save_success_dialog.label.setText("File saved successfully!!")
+        self.save_success_dialog.label.setStyleSheet(f"font-size: 14pt; font-weight: bold; color: #eaeaea;")
+        self.save_success_dialog.show()
+
+    def show_save_csv_failed(self):
+        self.save_success_dialog.label.setText("Track file is empty!")
+        self.save_success_dialog.label.setStyleSheet(f"font-size: 14pt; font-weight: bold; color: #eaeaea;")
+        self.save_success_dialog.show()
+    
 
     def enable_buttons(self):
         self.open_btn.setEnabled(True)
@@ -298,7 +321,7 @@ if __name__ == "__main__":
     sys.excepthook = error_handler.excepthook
     app = QApplication(sys.argv)
     window = HeatMapWindow()
-    icon = QIcon('icon.png')
+    icon = QIcon('icons/icon.png')
     window.setWindowIcon(icon)
     window.showMaximized()
     opened = window.open_video_file()
